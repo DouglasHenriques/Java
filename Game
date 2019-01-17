@@ -1,0 +1,118 @@
+package randomgame;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class RandomGame {
+
+    public static void dica(int num, int chute, int a) {
+        if (chute == num + 1 || chute == num - 1) {
+            System.out.println("Voce esta quente.");
+        } else if (chute > num) {
+            System.out.println("Seu palpite é maior que o numero sorteado.");
+            System.out.println("Digite um numero menor que " + chute);
+        } else if (chute < num) {
+            System.out.println("Seu palpite é menor que o numero sorteado.");
+            System.out.println("Digite um numero maior que " + chute);
+        } else if (chute == num) {
+            System.out.println("Você acertou!!");
+        }
+    }
+
+    public static void main(String[] args) {
+        int play = 1;
+        while (play == 1) {
+            Random gerador = new Random();
+            Scanner in = new Scanner(System.in);
+            int num, a, b, chute = 0;
+            System.out.println("Bem vindo ao jogo de adivinhação!!");
+            System.out.println("Qual nivel você deseja jogar?");
+            System.out.println("------------------------");
+            System.out.println("|Facil - 15 tentativas.|");
+            System.out.println("|Medio - 10 tentativas.|");
+            System.out.println("|Dificil - 5 tentativas|");
+            System.out.println("------------------------");
+            System.out.println("Digite 1 para facil");
+            System.out.println("2 para medio");
+            System.out.print("e 3 para dificil: ");
+            a = in.nextInt();
+            while (a < 1 || a > 3) {
+                System.out.println("Voce digitou um valor invalido.");
+                System.out.println("Qual nivel você deseja jogar?");
+                System.out.println("------------------------");
+                System.out.println("|Facil - 15 tentativas.|");
+                System.out.println("|Medio - 10 tentativas.|");
+                System.out.println("|Dificil - 5 tentativas|");
+                System.out.println("------------------------");
+                System.out.println("Digite 1 para facil");
+                System.out.println("2 para medio");
+                System.out.print("e 3 para dificil: ");
+                a = in.nextInt();
+            }
+            switch (a) {
+                case 1:
+                    b = 15;
+                    break;
+                case 2:
+                    b = 10;
+                    break;
+                default:
+                    b = 5;
+                    break;
+            }
+            num = gerador.nextInt(101);
+            switch (a) {
+                case 1:
+                    System.out.println("Numero sorteado");
+                    System.out.println("Você escolheu o nivel Facil");
+                    System.out.println("Você terá 15 tentativas");
+                    break;
+                case 2:
+                    System.out.println("Numero sorteado");
+                    System.out.println("Você escolheu o nivel medio");
+                    System.out.println("Você terá 10 tentativas");
+                    break;
+                case 3:
+                    System.out.println("Numero sorteado");
+                    System.out.println("Você escolheu o nivel dificil");
+                    System.out.println("Você terá 5 tentativas");
+                    break;
+            }
+            for (int i = 1; i <= b; i++) {
+                System.out.println("Tentativa " + i);
+                System.out.print("Qual numero sorteado? ");
+                chute = in.nextInt();
+                while (chute < 0 || chute > 100) {
+                    System.out.println("Numero invalido");
+                    System.out.println("Tentativa " + i);
+                    System.out.print("Qual numero sorteado? ");
+                    chute = in.nextInt();
+                }
+                dica(num, chute, a);
+                if (chute == num) {
+                    System.out.println("Deseja jogar novamente?");
+                    System.out.print("Digite 1 para sim e 2 para não: ");
+                    play = in.nextInt();
+                    while (play != 1 && play != 2) {
+                        System.out.println("Valor Invalido");
+                        System.out.print("Digite 1 para sim e 2 para não: ");
+                        play = in.nextInt();
+                    }
+                    break;
+                }
+            }
+            if (chute != num) {
+                System.out.println("Você nao acertou.");
+                System.out.println("Deseja jogar novamente?");
+                System.out.print("Digite 1 para sim e 2 para não: ");
+                play = in.nextInt();
+                while (play != 1 && play != 2) {
+                    System.out.println("Valor Invalido");
+                    System.out.print("Digite 1 para sim e 2 para não: ");
+                    play = in.nextInt();
+                }
+            }
+        }
+    }
+}
+
